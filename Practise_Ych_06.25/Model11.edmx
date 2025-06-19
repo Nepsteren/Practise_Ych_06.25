@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LeasingCompany_2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="postal_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="country" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="contact_phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="contact_email" Type="nvarchar" MaxLength="100" />
+          <Property Name="address_id" Type="int" />
+          <Property Name="registration_date" Type="date" />
+          <Property Name="tax_id_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="credit_rating" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="hire_date" Type="date" Nullable="false" />
+          <Property Name="salary" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="department" Type="nvarchar" MaxLength="100" />
+          <Property Name="position" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="phone" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Insurance">
+          <Key>
+            <PropertyRef Name="insurance_id" />
+          </Key>
+          <Property Name="insurance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="policy_number" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="provider" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="premium" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="coverage_amount" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeasingContracts">
+          <Key>
+            <PropertyRef Name="contract_id" />
+          </Key>
+          <Property Name="contract_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="monthly_payment" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="total_value" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="interest_rate" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="sales_rep_id" Type="int" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Maintenance">
+          <Key>
+            <PropertyRef Name="maintenance_id" />
+          </Key>
+          <Property Name="maintenance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="maintenance_date" Type="date" Nullable="false" />
+          <Property Name="maintenance_type" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="cost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="performed_by" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contract_id" Type="int" Nullable="false" />
+          <Property Name="payment_date" Type="date" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="payment_method" Type="nvarchar" MaxLength="50" />
+          <Property Name="received_by" Type="int" />
+          <Property Name="notes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="category" Type="nvarchar" MaxLength="100" />
+          <Property Name="purchase_price" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="current_value" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="acquisition_date" Type="date" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "LeasingCompany_2.dbo.vw_ActiveContractsWithDetails" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vw_ActiveContractsWithDetails">
+          <Key>
+            <PropertyRef Name="contract_id" />
+            <PropertyRef Name="client_name" />
+            <PropertyRef Name="product_name" />
+            <PropertyRef Name="start_date" />
+            <PropertyRef Name="end_date" />
+            <PropertyRef Name="monthly_payment" />
+            <PropertyRef Name="total_value" />
+            <PropertyRef Name="sales_representative" />
+          </Key>
+          <Property Name="contract_id" Type="int" Nullable="false" />
+          <Property Name="client_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="category" Type="nvarchar" MaxLength="100" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="monthly_payment" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="total_value" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="sales_representative" Type="nvarchar" MaxLength="201" Nullable="false" />
+          <Property Name="months_remaining" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "LeasingCompany_2.dbo.vw_ProductFinancialAnalytics" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vw_ProductFinancialAnalytics">
+          <Key>
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="product_name" />
+            <PropertyRef Name="purchase_price" />
+            <PropertyRef Name="current_value" />
+          </Key>
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="category" Type="nvarchar" MaxLength="100" />
+          <Property Name="purchase_price" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="current_value" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="lease_count" Type="int" />
+          <Property Name="total_lease_value" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="total_maintenance_cost" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="total_insurance_cost" Type="decimal" Precision="38" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Clients__address__4D94879B">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="address_id" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Insurance__produ__628FA481">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Insurance" Type="Self.Insurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Insurance">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeasingCo__clien__571DF1D5">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="LeasingContracts">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeasingCo__produ__5812160E">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="LeasingContracts">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeasingCo__sales__59063A47">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="LeasingContracts">
+              <PropertyRef Name="sales_rep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Maintenan__produ__5FB337D6">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Maintenance" Type="Self.Maintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Maintenance">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__contra__5BE2A6F2">
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeasingContracts">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__receiv__5CD6CB2B">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="received_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_CalculateProjectedRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="months" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="client_id" Type="int" Nullable="false" />
+                <Property Name="client_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+                <Property Name="projected_revenue" Type="decimal" Precision="38" Scale="2" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_IsProductAvailable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
+          <Parameter Name="product_id" Type="int" Mode="In" />
+          <Parameter Name="start_date" Type="date" Mode="In" />
+          <Parameter Name="end_date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_CompleteLeasingContract" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="contract_id" Type="int" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="InOut" />
+          <Parameter Name="message" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="sp_CreateLeasingContract" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="int" Mode="In" />
+          <Parameter Name="product_id" Type="int" Mode="In" />
+          <Parameter Name="start_date" Type="date" Mode="In" />
+          <Parameter Name="end_date" Type="date" Mode="In" />
+          <Parameter Name="monthly_payment" Type="decimal" Mode="In" />
+          <Parameter Name="sales_rep_id" Type="int" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="InOut" />
+          <Parameter Name="message" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="sp_MoveProductToMaintenance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="product_id" Type="int" Mode="In" />
+          <Parameter Name="maintenance_type" Type="nvarchar" Mode="In" />
+          <Parameter Name="cost" Type="decimal" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="performed_by" Type="nvarchar" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="InOut" />
+          <Parameter Name="message" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="sp_UpdateProductValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="product_id" Type="int" Mode="In" />
+          <Parameter Name="new_value" Type="decimal" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="InOut" />
+          <Parameter Name="message" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="Хранилище LeasingCompany_2ModelContainer">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insurance" EntityType="Self.Insurance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeasingContracts" EntityType="Self.LeasingContracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maintenance" EntityType="Self.Maintenance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_ActiveContractsWithDetails" EntityType="Self.vw_ActiveContractsWithDetails" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_ActiveContractsWithDetails].[contract_id] AS [contract_id], 
+    [vw_ActiveContractsWithDetails].[client_name] AS [client_name], 
+    [vw_ActiveContractsWithDetails].[product_name] AS [product_name], 
+    [vw_ActiveContractsWithDetails].[category] AS [category], 
+    [vw_ActiveContractsWithDetails].[start_date] AS [start_date], 
+    [vw_ActiveContractsWithDetails].[end_date] AS [end_date], 
+    [vw_ActiveContractsWithDetails].[monthly_payment] AS [monthly_payment], 
+    [vw_ActiveContractsWithDetails].[total_value] AS [total_value], 
+    [vw_ActiveContractsWithDetails].[sales_representative] AS [sales_representative], 
+    [vw_ActiveContractsWithDetails].[months_remaining] AS [months_remaining]
+    FROM [dbo].[vw_ActiveContractsWithDetails] AS [vw_ActiveContractsWithDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_ProductFinancialAnalytics" EntityType="Self.vw_ProductFinancialAnalytics" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_ProductFinancialAnalytics].[product_id] AS [product_id], 
+    [vw_ProductFinancialAnalytics].[product_name] AS [product_name], 
+    [vw_ProductFinancialAnalytics].[category] AS [category], 
+    [vw_ProductFinancialAnalytics].[purchase_price] AS [purchase_price], 
+    [vw_ProductFinancialAnalytics].[current_value] AS [current_value], 
+    [vw_ProductFinancialAnalytics].[lease_count] AS [lease_count], 
+    [vw_ProductFinancialAnalytics].[total_lease_value] AS [total_lease_value], 
+    [vw_ProductFinancialAnalytics].[total_maintenance_cost] AS [total_maintenance_cost], 
+    [vw_ProductFinancialAnalytics].[total_insurance_cost] AS [total_insurance_cost]
+    FROM [dbo].[vw_ProductFinancialAnalytics] AS [vw_ProductFinancialAnalytics]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Clients__address__4D94879B" Association="Self.FK__Clients__address__4D94879B">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Insurance__produ__628FA481" Association="Self.FK__Insurance__produ__628FA481">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Insurance" EntitySet="Insurance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeasingCo__clien__571DF1D5" Association="Self.FK__LeasingCo__clien__571DF1D5">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeasingCo__produ__5812160E" Association="Self.FK__LeasingCo__produ__5812160E">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeasingCo__sales__59063A47" Association="Self.FK__LeasingCo__sales__59063A47">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Maintenan__produ__5FB337D6" Association="Self.FK__Maintenan__produ__5FB337D6">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Maintenance" EntitySet="Maintenance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__contra__5BE2A6F2" Association="Self.FK__Payments__contra__5BE2A6F2">
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__receiv__5CD6CB2B" Association="Self.FK__Payments__receiv__5CD6CB2B">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LeasingCompany_2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="fn_CalculateProjectedRevenue_Result">
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="client_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="projected_revenue" Type="Decimal" Precision="38" Scale="2" />
+        </ComplexType>
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="street" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="postal_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Clients__address__4D94879B" FromRole="Addresses" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="contact_email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address_id" Type="Int32" />
+          <Property Name="registration_date" Type="DateTime" Precision="0" />
+          <Property Name="tax_id_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="credit_rating" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK__Clients__address__4D94879B" FromRole="Clients" ToRole="Addresses" />
+          <NavigationProperty Name="LeasingContracts" Relationship="Self.FK__LeasingCo__clien__571DF1D5" FromRole="Clients" ToRole="LeasingContracts" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="hire_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="salary" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LeasingContracts" Relationship="Self.FK__LeasingCo__sales__59063A47" FromRole="Employees" ToRole="LeasingContracts" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__receiv__5CD6CB2B" FromRole="Employees" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="Insurance">
+          <Key>
+            <PropertyRef Name="insurance_id" />
+          </Key>
+          <Property Name="insurance_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="policy_number" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="provider" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="premium" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="coverage_amount" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Insurance__produ__628FA481" FromRole="Insurance" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="LeasingContracts">
+          <Key>
+            <PropertyRef Name="contract_id" />
+          </Key>
+          <Property Name="contract_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="monthly_payment" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="total_value" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="interest_rate" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sales_rep_id" Type="Int32" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__LeasingCo__clien__571DF1D5" FromRole="LeasingContracts" ToRole="Clients" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__LeasingCo__sales__59063A47" FromRole="LeasingContracts" ToRole="Employees" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__LeasingCo__produ__5812160E" FromRole="LeasingContracts" ToRole="Products" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__contra__5BE2A6F2" FromRole="LeasingContracts" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="Maintenance">
+          <Key>
+            <PropertyRef Name="maintenance_id" />
+          </Key>
+          <Property Name="maintenance_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="maintenance_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="maintenance_type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cost" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="performed_by" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Maintenan__produ__5FB337D6" FromRole="Maintenance" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contract_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="amount" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="payment_method" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="received_by" Type="Int32" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Payments__receiv__5CD6CB2B" FromRole="Payments" ToRole="Employees" />
+          <NavigationProperty Name="LeasingContracts" Relationship="Self.FK__Payments__contra__5BE2A6F2" FromRole="Payments" ToRole="LeasingContracts" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="purchase_price" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="current_value" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="acquisition_date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Insurance" Relationship="Self.FK__Insurance__produ__628FA481" FromRole="Products" ToRole="Insurance" />
+          <NavigationProperty Name="LeasingContracts" Relationship="Self.FK__LeasingCo__produ__5812160E" FromRole="Products" ToRole="LeasingContracts" />
+          <NavigationProperty Name="Maintenance" Relationship="Self.FK__Maintenan__produ__5FB337D6" FromRole="Products" ToRole="Maintenance" />
+        </EntityType>
+        <EntityType Name="vw_ActiveContractsWithDetails">
+          <Key>
+            <PropertyRef Name="contract_id" />
+            <PropertyRef Name="client_name" />
+            <PropertyRef Name="product_name" />
+            <PropertyRef Name="start_date" />
+            <PropertyRef Name="end_date" />
+            <PropertyRef Name="monthly_payment" />
+            <PropertyRef Name="total_value" />
+            <PropertyRef Name="sales_representative" />
+          </Key>
+          <Property Name="contract_id" Type="Int32" Nullable="false" />
+          <Property Name="client_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="monthly_payment" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="total_value" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="sales_representative" Type="String" MaxLength="201" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="months_remaining" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vw_ProductFinancialAnalytics">
+          <Key>
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="product_name" />
+            <PropertyRef Name="purchase_price" />
+            <PropertyRef Name="current_value" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="purchase_price" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="current_value" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="lease_count" Type="Int32" />
+          <Property Name="total_lease_value" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="total_maintenance_cost" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="total_insurance_cost" Type="Decimal" Precision="38" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Clients__address__4D94879B">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="address_id" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeasingCo__clien__571DF1D5">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="LeasingContracts">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeasingCo__sales__59063A47">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="LeasingContracts">
+              <PropertyRef Name="sales_rep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__receiv__5CD6CB2B">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="received_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Insurance__produ__628FA481">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Insurance" Type="Self.Insurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Insurance">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeasingCo__produ__5812160E">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="LeasingContracts">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__contra__5BE2A6F2">
+          <End Role="LeasingContracts" Type="Self.LeasingContracts" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeasingContracts">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Maintenan__produ__5FB337D6">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Maintenance" Type="Self.Maintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Maintenance">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LeasingCompany_2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Insurance" EntityType="Self.Insurance" />
+          <EntitySet Name="LeasingContracts" EntityType="Self.LeasingContracts" />
+          <EntitySet Name="Maintenance" EntityType="Self.Maintenance" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="vw_ActiveContractsWithDetails" EntityType="Self.vw_ActiveContractsWithDetails" />
+          <EntitySet Name="vw_ProductFinancialAnalytics" EntityType="Self.vw_ProductFinancialAnalytics" />
+          <AssociationSet Name="FK__Clients__address__4D94879B" Association="Self.FK__Clients__address__4D94879B">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeasingCo__clien__571DF1D5" Association="Self.FK__LeasingCo__clien__571DF1D5">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeasingCo__sales__59063A47" Association="Self.FK__LeasingCo__sales__59063A47">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__receiv__5CD6CB2B" Association="Self.FK__Payments__receiv__5CD6CB2B">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Insurance__produ__628FA481" Association="Self.FK__Insurance__produ__628FA481">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Insurance" EntitySet="Insurance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeasingCo__produ__5812160E" Association="Self.FK__LeasingCo__produ__5812160E">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__contra__5BE2A6F2" Association="Self.FK__Payments__contra__5BE2A6F2">
+            <End Role="LeasingContracts" EntitySet="LeasingContracts" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Maintenan__produ__5FB337D6" Association="Self.FK__Maintenan__produ__5FB337D6">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Maintenance" EntitySet="Maintenance" />
+          </AssociationSet>
+          <FunctionImport Name="fn_CalculateProjectedRevenue" IsComposable="true" ReturnType="Collection(LeasingCompany_2Model.fn_CalculateProjectedRevenue_Result)">
+            <Parameter Name="months" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CompleteLeasingContract">
+            <Parameter Name="contract_id" Mode="In" Type="Int32" />
+            <Parameter Name="result" Mode="InOut" Type="Int32" />
+            <Parameter Name="message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CreateLeasingContract">
+            <Parameter Name="client_id" Mode="In" Type="Int32" />
+            <Parameter Name="product_id" Mode="In" Type="Int32" />
+            <Parameter Name="start_date" Mode="In" Type="DateTime" />
+            <Parameter Name="end_date" Mode="In" Type="DateTime" />
+            <Parameter Name="monthly_payment" Mode="In" Type="Decimal" />
+            <Parameter Name="sales_rep_id" Mode="In" Type="Int32" />
+            <Parameter Name="result" Mode="InOut" Type="Int32" />
+            <Parameter Name="message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MoveProductToMaintenance">
+            <Parameter Name="product_id" Mode="In" Type="Int32" />
+            <Parameter Name="maintenance_type" Mode="In" Type="String" />
+            <Parameter Name="cost" Mode="In" Type="Decimal" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="performed_by" Mode="In" Type="String" />
+            <Parameter Name="result" Mode="InOut" Type="Int32" />
+            <Parameter Name="message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateProductValue">
+            <Parameter Name="product_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_value" Mode="In" Type="Decimal" />
+            <Parameter Name="result" Mode="InOut" Type="Int32" />
+            <Parameter Name="message" Mode="InOut" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LeasingCompany_2ModelContainer" CdmEntityContainer="LeasingCompany_2Entities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.Addresses">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="contact_phone" ColumnName="contact_phone" />
+                <ScalarProperty Name="contact_email" ColumnName="contact_email" />
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
+                <ScalarProperty Name="tax_id_number" ColumnName="tax_id_number" />
+                <ScalarProperty Name="credit_rating" ColumnName="credit_rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="hire_date" ColumnName="hire_date" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insurance">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.Insurance">
+              <MappingFragment StoreEntitySet="Insurance">
+                <ScalarProperty Name="insurance_id" ColumnName="insurance_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="policy_number" ColumnName="policy_number" />
+                <ScalarProperty Name="provider" ColumnName="provider" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="premium" ColumnName="premium" />
+                <ScalarProperty Name="coverage_amount" ColumnName="coverage_amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeasingContracts">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.LeasingContracts">
+              <MappingFragment StoreEntitySet="LeasingContracts">
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="monthly_payment" ColumnName="monthly_payment" />
+                <ScalarProperty Name="total_value" ColumnName="total_value" />
+                <ScalarProperty Name="interest_rate" ColumnName="interest_rate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="sales_rep_id" ColumnName="sales_rep_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maintenance">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.Maintenance">
+              <MappingFragment StoreEntitySet="Maintenance">
+                <ScalarProperty Name="maintenance_id" ColumnName="maintenance_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="maintenance_date" ColumnName="maintenance_date" />
+                <ScalarProperty Name="maintenance_type" ColumnName="maintenance_type" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="performed_by" ColumnName="performed_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+                <ScalarProperty Name="received_by" ColumnName="received_by" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="purchase_price" ColumnName="purchase_price" />
+                <ScalarProperty Name="current_value" ColumnName="current_value" />
+                <ScalarProperty Name="acquisition_date" ColumnName="acquisition_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_ActiveContractsWithDetails">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.vw_ActiveContractsWithDetails">
+              <MappingFragment StoreEntitySet="vw_ActiveContractsWithDetails">
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="monthly_payment" ColumnName="monthly_payment" />
+                <ScalarProperty Name="total_value" ColumnName="total_value" />
+                <ScalarProperty Name="sales_representative" ColumnName="sales_representative" />
+                <ScalarProperty Name="months_remaining" ColumnName="months_remaining" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_ProductFinancialAnalytics">
+            <EntityTypeMapping TypeName="LeasingCompany_2Model.vw_ProductFinancialAnalytics">
+              <MappingFragment StoreEntitySet="vw_ProductFinancialAnalytics">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="purchase_price" ColumnName="purchase_price" />
+                <ScalarProperty Name="current_value" ColumnName="current_value" />
+                <ScalarProperty Name="lease_count" ColumnName="lease_count" />
+                <ScalarProperty Name="total_lease_value" ColumnName="total_lease_value" />
+                <ScalarProperty Name="total_maintenance_cost" ColumnName="total_maintenance_cost" />
+                <ScalarProperty Name="total_insurance_cost" ColumnName="total_insurance_cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="Хранилище LeasingCompany_2Model.fn_CalculateProjectedRevenue" FunctionImportName="fn_CalculateProjectedRevenue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LeasingCompany_2Model.fn_CalculateProjectedRevenue_Result">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="projected_revenue" ColumnName="projected_revenue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CompleteLeasingContract" FunctionName="Хранилище LeasingCompany_2Model.sp_CompleteLeasingContract" />
+          <FunctionImportMapping FunctionImportName="sp_CreateLeasingContract" FunctionName="Хранилище LeasingCompany_2Model.sp_CreateLeasingContract" />
+          <FunctionImportMapping FunctionImportName="sp_MoveProductToMaintenance" FunctionName="Хранилище LeasingCompany_2Model.sp_MoveProductToMaintenance" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateProductValue" FunctionName="Хранилище LeasingCompany_2Model.sp_UpdateProductValue" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

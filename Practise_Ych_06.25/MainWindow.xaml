@@ -1,0 +1,106 @@
+﻿<Window x:Class="Practise_Ych_06._25.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practise_Ych_06._25"
+        mc:Ignorable="d"
+        Title="Leasing Company Analytics" Height="600" Width="900">
+    <Grid>
+        <TabControl x:Name="MainTabControl" Margin="10">
+            <TabItem Header="Активные контракты">
+                <StackPanel>
+                    <DataGrid x:Name="ActiveContractsGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="400">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID контракта" Binding="{Binding contract_id}"/>
+                            <DataGridTextColumn Header="Клиент" Binding="{Binding client_name}"/>
+                            <DataGridTextColumn Header="Продукт" Binding="{Binding product_name}"/>
+                            <DataGridTextColumn Header="Категория" Binding="{Binding category}"/>
+                            <DataGridTextColumn Header="Ежемесячный платеж" Binding="{Binding monthly_payment, StringFormat=C}"/>
+                            <DataGridTextColumn Header="Осталось месяцев" Binding="{Binding months_remaining}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                        <Button Content="Экспорт в CSV" Click="ExportToCsv_Click" Margin="0,0,10,0"/>
+                        <Button Content="Экспорт в Excel" Click="ExportToExcel_Click"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Button Content="Импорт из Excel" Click="ImportFromExcel_Click" Margin="5" Padding="10,5"/>
+                        <Button Content="Импорт из CSV" Click="ImportFromCsv_Click" Margin="5" Padding="10,5"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Создать контракт">
+                <StackPanel Margin="10">
+                    <GroupBox Header="Новый контракт">
+                        <StackPanel Margin="5">
+                            <Label Content="Клиент:"/>
+                            <ComboBox x:Name="ClientComboBox" DisplayMemberPath="client_name"/>
+
+                            <Label Content="Продукт:"/>
+                            <ComboBox x:Name="ProductComboBox" DisplayMemberPath="product_name"/>
+
+                            <Label Content="Дата начала:"/>
+                            <DatePicker x:Name="StartDatePicker"/>
+
+                            <Label Content="Дата окончания:"/>
+                            <DatePicker x:Name="EndDatePicker"/>
+
+                            <Label Content="Ежемесячный платеж:"/>
+                            <TextBox x:Name="MonthlyPaymentTextBox"/>
+
+                            <Label Content="Менеджер:"/>
+                            <ComboBox x:Name="EmployeeComboBox" DisplayMemberPath="FullName"/>
+
+                            <Button Content="Создать контракт" Margin="0,10" Padding="10,5" 
+                                    Click="CreateContractButton_Click"/>
+
+                            <TextBlock x:Name="ContractResultText" Margin="0,5" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Финансовая аналитика">
+                <StackPanel>
+                    <DataGrid x:Name="ProductAnalyticsGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Продукт" Binding="{Binding product_name}"/>
+                            <DataGridTextColumn Header="Категория" Binding="{Binding category}"/>
+                            <DataGridTextColumn Header="Текущая стоимость" Binding="{Binding current_value, StringFormat=C}"/>
+                            <DataGridTextColumn Header="Кол-во аренд" Binding="{Binding lease_count}"/>
+                            <DataGridTextColumn Header="Общий доход" Binding="{Binding total_lease_value, StringFormat=C}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <GroupBox Header="Прогнозируемый доход" Margin="5">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Label Content="Период (месяцы):"/>
+                                <TextBox x:Name="MonthsTextBox" Width="50" Text="12"/>
+                                <Button Content="Рассчитать" Margin="10,0" Click="CalculateRevenueButton_Click"/>
+                            </StackPanel>
+                            <DataGrid x:Name="RevenueGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Клиент" Binding="{Binding client_name}"/>
+                                    <DataGridTextColumn Header="Прогнозируемый доход" Binding="{Binding projected_revenue, StringFormat=C}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Резервное копирование">
+                <StackPanel Margin="10">
+                    <Button Content="Создать резервную копию" Padding="10,5" Click="BackupDatabase_Click"/>
+                    <Button Content="Восстановить из резервной копии" Padding="10,5" Margin="0,10" Click="RestoreDatabase_Click"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
